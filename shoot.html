@@ -1,0 +1,287 @@
+<!--
+
+This HTML document outlines the structure and styling for 
+
+        an "8 Ball Pool" game setup page. The document begins with specifying
+         the language as English and includes meta tags for character encoding and viewport settings. 
+         he page features a centered layout with a light blue background and a form for setting up the game, 
+         i
+         ncluding fields for the game number, 
+         player 1 name, and player 2 name. 
+         Styling is applied to elements 
+         such as labels, input fields, and buttons, ensuring 
+         visual coherence and readability. JavaScript code 
+         is embedded to handle form submission and game start functionality,
+         utilizing XMLHttpRequest objects to
+         interact with the server. Overall, the document 
+         combines HTML markup with CSS styling and JavaScript 
+         scripting 
+         to create an interactive and visually appealing game setup interface for users.
+    
+-->
+
+
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Pool</title>
+
+
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #menuBox {
+            background-color: rgb(127, 120, 120);
+
+            padding: 250px; /* Updated padding to make it 3x bigger */
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+
+
+
+
+            font-size: 52px;
+            color: lightblue;
+        }
+
+        label {
+
+
+
+
+            font-size: 24px;
+        }
+
+        input[type="text"] {
+
+
+            font-size: 18px;
+            padding: 5px;
+
+
+            border-radius: 5px;
+        }
+
+        button[type="submit"],
+        #startGameButton {
+            font-size: 40px;
+
+
+            background-color: red;
+            color: white;
+
+
+            padding: 10px 20px;
+            border: none;
+
+
+
+            border-radius: 5px;
+
+
+
+
+            margin-top: 20px;
+        }
+
+        /* BEGIN: Increase font size for Save Game Info text */
+        #menuBox h1 {
+
+            font-size: 48px;
+        }
+        /* END: Increase font size for Save Game Info text */
+
+        /* BEGIN: Increase font size for labels */
+        #menuBox label {
+            font-size: 36px;
+        }
+        /* END: Increase font size for labels */
+
+        /* END: Increase font size for labels */
+
+        /*This HTML document outlines the structure and styling for 
+        an "8 Ball Pool" game setup page. The document begins with specifying
+         the language as English and includes meta tags for character encoding and viewport settings. 
+         he page features a centered layout with a light blue background and a form for setting up the game, 
+         i
+         ncluding fields for the game number, 
+         player 1 name, and player 2 name. 
+         Styling is applied to elements 
+         such as labels, input fields, and buttons, ensuring 
+         visual coherence and readability. JavaScript code 
+         is embedded to handle form submission and game start functionality,
+         utilizing XMLHttpRequest objects to
+         interact with the server. Overall, the document 
+         combines HTML markup with CSS styling and JavaScript 
+         scripting 
+         to create an interactive and visually appealing game setup interface for users.*/
+    </style>
+
+
+  </head>
+  <body>
+    <h1>Pool</h1>
+
+    
+    <form id="setup">
+
+
+      <label for="game">Game #:</label>
+
+
+      <input type="text" id="gameName" name="game" required><br><br>
+
+
+      <label for="p1">Player 1:</label>
+      <input type="text" id="player1" name="p1" required><br><br>
+
+
+      <label for="p1">Player 2:</label>
+
+      <input type="text" id="player2" name="p2" required><br><br>
+
+      <button type="submit">Save</button>
+    </form>
+    <button id="start">Start Game</button>
+    <script>
+
+
+// This script will handle the form data and send it to the server
+      document.getElementById('setup').addEventListener('submit', 
+
+      // This function will handle the form data and send it to the server
+      function( event ) 
+      {
+
+
+        // Prevent the form from submitting
+        event.preventDefault();
+
+        // Create a new FormData object
+        var form;
+
+        // Get the form data
+        form =  new FormData(document.getElementById('setup'));
+
+        // Create a new XMLHttpRequest object
+        var x;
+
+        // Create a new XMLHttpRequest object
+        x = new XMLHttpRequest();
+
+
+        // Open a new connection to the server
+        x.open('POST', '/setuptheGame.html', true);
+
+
+        // Set the request header
+        // 'Content-type' is the type of data that will be sent to the server
+        /// setuptheGame.html is the path to the file that will handle the form data
+        x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        // This function will handle the server response
+        x.onload = function() 
+        {
+
+
+
+
+
+
+
+          if (x.status == 200) 
+          {
+
+            alert('SAVED');
+          }
+        else 
+        {
+            alert('NOT SAVED');
+          }
+        };
+
+
+
+
+
+        x.send(new URLSearchParams(form).toString());
+      });
+
+      document.getElementById('start').addEventListener('click', function() 
+      {
+        var x = new XMLHttpRequest();
+
+        // Open a new connection to the server
+        x.open('POST', '/playGame.html', true);
+
+
+        // Set the request header
+
+        x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); // 'Content-type' is the type of data that will be sent to the server
+        
+        // This function will handle the server response
+        x.onload = function() 
+        {
+
+
+
+            // Check if the server response is OK
+          if ( x.status ==200 ) 
+          {
+
+            // Create a variable to hold the server response
+            var response;
+            // Get the server response
+            response= x.responseText;
+
+
+            // Display the server response
+            document.write(response);
+
+
+
+          } 
+          // If the server response is not OK
+          else 
+          {
+            // Display an error message
+            alert('ERROR: Cant Begin');
+
+
+
+          }
+        };
+
+
+        // Send the request to the server which will start the game
+        x.send(); // Send the request to the server
+      });
+
+
+    </script>
+
+
+  </body>
+
+
+
+</html>

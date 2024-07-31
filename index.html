@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Ball Game</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <div id="startGameForm">
+        <h1>8-Ball Game</h1>
+        <div class="form-container">
+            <form id="startGame" onsubmit="startGame(event)">
+                <label for="player1">Player 1 Name:</label>
+                <input type="text" id="player1" name="player1"><br><br>
+                <label for="player2">Player 2 Name:</label>
+                <input type="text" id="player2" name="player2"><br><br>
+                <label for="gameNumber">Game Number:</label>
+                <input type="text" id="gameNumber" name="gameNumber"><br><br>
+                <input type="submit" value="Start Game">
+            </form>
+        </div>
+    </div>
+
+    <div id="gameContent" style="display: none;">
+        <!-- SVG element representing the pool table -->
+        <svg id="poolTable" width="700" height="1375" viewBox="-25 -25 1400 2750"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <!-- Add elements representing the pool table, including the cue ball -->
+            <!-- Example: <circle cx="100" cy="100" r="10" fill="white" /> -->
+        </svg>
+    </div>
+
+    <script src="game.js"></script>
+    <script>
+        function startGame(event) {
+            event.preventDefault(); // Prevent the default form submission
+            // Extract form data
+            var player1 = document.getElementById('player1').value;
+            var player2 = document.getElementById('player2').value;
+            var gameNumber = document.getElementById('gameNumber').value;
+            // You can perform validation here if needed
+
+            // Hide the form and display the game content
+            document.getElementById('startGameForm').style.display = 'none';
+            document.getElementById('gameContent').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
